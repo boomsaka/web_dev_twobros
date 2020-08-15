@@ -52,7 +52,7 @@ if ($uploadOk == 0) {
 
   if (!get_magic_quotes_gpc()) {
     $streetAddress = addslashes($streetAddress);
-    $unitNumber = doubleval($unitNumber);
+    $unitNumber = addslashes($unitNumber);
     $pictures = addslashes($pictures);
     $price = doubleval($price);
     $size = doubleval($size);

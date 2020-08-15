@@ -124,8 +124,8 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
           $row = $result->fetch_assoc();
           echo "<p style='margin-left: 1;'><strong> Apartment ID: ";
           echo stripslashes($row['apartmentId']);
+          echo "<img src='uploads/".$row['pictures']."' style='float:right;width:240;height:220;'>";
           echo "</strong><br>";
-          echo "<img src='uploads/".$row['pictures']."' style='float:right;width:220;height:220;'>";
           echo "<br>";
           echo "<p style='margin-left: 1;'> Street Adress: ";
           echo htmlspecialchars(stripslashes($row['streetAddress']));
@@ -139,7 +139,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
           echo "<p style='margin-left: 1;'> Size: ";
           echo stripslashes($row['size']);
           echo "<br>";
-          echo "<p style='margin-left: 1;'> Picture: ";
+
           echo "<br>";
           echo "</p>";
           echo "<hr>";
