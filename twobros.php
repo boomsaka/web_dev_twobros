@@ -44,7 +44,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
       <p><button class="w3-button w3-red w3-round-xxlarge w3-border w3-left-align" type="submit" name='submit-button'><i class="fa fa-search w3-margin-right"></i> Search </button></p>
     </form>
 
-    <button onclick="window.location.href='favolist.php'">My Favorite List</button>
+    <button onclick="window.location.href='favolist.php'"><i class="fa fa-heart w3-margin-right"></i>My Favorite List</button>
 
   </div>
   <div class="w3-bar-block">
@@ -86,7 +86,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
   </div> <hr>
 
 
-  <div class="w3-container" id='apartment'>
+  <div class="w3-container" id='apartments'>
     <h2 class="w3-text-red">Apartment Listings</h2>
     <?php
   $mysqli_link = mysqli_connect('localhost', 'bookorama', '123456789', 'twobros');
@@ -148,7 +148,8 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
           echo "<hr>";
         
           echo "<div style='text-align:right;font-weight: bold;'>  ";
-          echo "<p id=\"demo\" onclick=\"myFunction()\">Click me to turn the text in red to add the apartment to your favo list❤.</p>";
+          echo "<p id=$i onclick=\"togglefavolist(this.id)\">Click me to turn the text in red to add the apartment to your favo list❤.</p>";
+
           echo "</right>";
           echo "</div>";
       }
@@ -160,9 +161,14 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
     </div>
   
 <script>
-          function myFunction() {
-          document.getElementById("demo").style.color = "red";
+    function togglefavolist(itemId) {
+      if (document.getElementById(itemId).style.color === "red"){
+        document.getElementById(itemId).style.color = "black";
+      } else {
+        document.getElementById(itemId).style.color = "red";
       }
+    } 
+
 </script>
   
 
