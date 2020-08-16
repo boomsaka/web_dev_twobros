@@ -120,13 +120,14 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
       $result = mysqli_query($mysqli_link, $query) or die(mysqli_connect_error());
 
       $num_results = $result->num_rows;
-
-      mysqli_close($mysqli_link);
+      $apartmentId_list = []; 
 
       for ($i=0; $i <$num_results; $i++) {
           $row = $result->fetch_assoc();
+          $apartmentId = stripslashes($row['apartmentId']);
           echo "<p style='margin-left: 1;'><strong> Apartment ID: ";
           echo stripslashes($row['apartmentId']);
+          array_push($apartmentId_list, $row['apartmentId']);
           echo "<img src='uploads/".$row['pictures']."' style='float:right;width:240;height:220;'>";
           echo "</strong><br>";
           echo "<br>";
@@ -142,36 +143,33 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
           echo "<p style='margin-left: 1;'> Size: ";
           echo stripslashes($row['size']);
           echo "<br>";
-
-          echo "<br>";
           echo "</p>";
-          echo "<hr>";
-        
-          echo "<div style='text-align:right;font-weight: bold;'>  ";
-          echo "<p id=$i onclick=\"togglefavolist(this.id)\">Click me to turn the text in red to add the apartment to your favo list❤.</p>";
 
+          //echo "<form action='favorite_list_action.php' method='get' target='upload_target'>";
+          //echo "<i id=$i onclick=\"togglefavolist(this.id)\" class='fa fa-heart' style='font-size:18px;border:0px;background-color:#FFFFFF;'></i>";
+          //echo "</form>";
+         echo "<iframe id='upload_target' name='upload_target' src='add_favorite_item.php' style='width:0;height:0;border:0px solid #fff;'></iframe>";        
+         // Add Delete buttons and hidden fields for each query result
+    echo <<<_END
+    <form action="add_favorite_item.php" method="post" target='upload_target'>
+    <input tyle='text-align:center;' type="hidden" name="add_favorite" value="yes" />
+    <input type="hidden" name="apartmentId" value=$apartmentId />
+    <input type="submit" value="❤ Add to Favorite" /></form>
+_END;
+          //echo "<button id=$i name='heart' onclick=\"togglefavolist(this.id)\" class='fa fa-heart' style='font-size:18px'></button>";
+
+          echo "<hr>";
           echo "</right>";
-          echo "</div>";
       }
       echo "<label><i class='fa fa-building'></i> Apartments found:</label>";
       echo $num_results;
+      mysqli_close($mysqli_link);
+
     }
+    
 ?>
 
     </div>
-  
-<script>
-    function togglefavolist(itemId) {
-      if (document.getElementById(itemId).style.color === "red"){
-        document.getElementById(itemId).style.color = "black";
-      } else {
-        document.getElementById(itemId).style.color = "red";
-      }
-    } 
-
-</script>
-  
-
 
 <!-- End page content -->
 </div>
@@ -187,36 +185,4 @@ function w3_close() {
   document.getElementById("mySidebar").style.display = "none";
   document.getElementById("myOverlay").style.display = "none";
 }
-
-// Slideshow Apartment Images
-var slideIndex = 1;
-showDivs(slideIndex);
-
-function plusDivs(n) {
-  showDivs(slideIndex += n);
-}
-
-function currentDiv(n) {
-  showDivs(slideIndex = n);
-}
-
-function showDivs(n) {
-  var i;
-  var x = document.getElementsByClassName("mySlides");
-  var dots = document.getElementsByClassName("demo");
-  if (n > x.length) {slideIndex = 1}
-  if (n < 1) {slideIndex = x.length}
-  for (i = 0; i < x.length; i++) {
-    x[i].style.display = "none";
-  }
-  for (i = 0; i < dots.length; i++) {
-    dots[i].className = dots[i].className.replace(" w3-opacity-off", "");
-  }
-  x[slideIndex-1].style.display = "block";
-  dots[slideIndex-1].className += " w3-opacity-off";
-}
 </script>
-  
-  
-  
- 

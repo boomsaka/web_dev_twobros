@@ -1,5 +1,12 @@
+<?php
+$page = $_SERVER['PHP_SELF'];
+$sec = "1";
+?>
 <html>
 <title>TwoBros Home Page</title>
+<head>
+    <meta http-equiv="refresh" content="<?php echo $sec?>;URL='<?php echo $page?>'">
+    </head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -17,42 +24,10 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
     <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-button w3-transparent w3-display-topright"></i>
     <h3>TwoBros</h3>
     <h3>Affordable Housing for Students in NYC</h3>
-    <h6>Search NOW!</h6>
-    <hr>
-    <form action="" method="post">
-      <!--
-      <p><label><i class="fa fa-road"></i> Neighborhood</label></p>
-      <input class="w3-input w3-border" type="text" placeholder="Manhattan" name="area" required>
-      -->
 
-      <!-- 
-      <p><label><i class="fa fa-bed"></i> Bedrooms</label></p>
-      <input class="w3-input w3-border" type="number" value="1" name="bedroom" min="0" max="6">       
-      
-      <p><label><i class="fa fa-bath"></i> Bathrooms</label></p>
-      <input class="w3-input w3-border" type="number" value="1" name="bathroom" min="0" max="4"> 
-      -->
-    </form>
-
-    <button onclick="window.location.href='twobros.php'"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i>Go back to home page</button>
-
-    <button onclick="window.location.href='favolist.php'"><i class="fa fa-heart w3-margin-right"></i>My Favorite List</button>
-
-  </div>
-  <div class="w3-bar-block">
-    <a href="#apartment" class="w3-bar-item w3-button w3-padding-16"><i class="fa fa-building"></i> Apartment</a>
-    <a href="#contact" class="w3-bar-item w3-button w3-padding-16"><i class="fa fa-envelope"></i> Contact</a>
+    <button onclick="window.location.href='twobros.php'"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Go back to home page</button>
   </div>
   
-  <form action="new_apartment.html" method="get" target="_blank">
-         <button type="submit" class="w3-btn w3-block w3-red w3-border">Add New Apartment</button>
-  </form>
-  <form action="update_apartment.php" method="get" target="_blank">
-         <button type="submit" class="w3-btn w3-block w3-red w3-border">Update Apartment</button>
-  </form>
-  <form action="delete_apartment.php" method="get" target="_blank">
-         <button type="submit" class="w3-btn w3-block w3-red w3-border">Delete Apartment</button>
-  </form>
 </nav>
 
 <!-- Top menu on small screens -->
@@ -71,12 +46,6 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
   <div class="w3-hide-large" style="margin-top:80px"></div>
 
   <!-- Slideshow Header -->
-  <div class="w3-container">
-    <h2 class="w3-text-red">Our Mission</h2>
-    <p><img src="images/logo.png" alt="logo" style="float:left;width:200px;height:110px;"></p>
-    <p>We are here to help students find the right place to live, to study and to enjoy the local community here in NYC. We find afforable housing and handle all necessary documentation for our clients. There is nothing to worry about!</p>
-  </div> <hr>
-
 
   <div class="w3-container" id='apartments'>
     <h2 class="w3-text-red">Your Favorite Apartment Listings</h2>
@@ -89,7 +58,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
   
   
   // builds the query // Please be aware the customerId need to be resolved with variables
-  $query0 = "SELECT * FROM apartment WHERE apartmentId IN (SELECT apartmentId FROM user_apt_like where customerId = 10)";
+  $query0 = "SELECT * FROM apartment WHERE apartmentId IN (SELECT apartmentId FROM user_apt_like where customerId = 1)";
 
   $result = mysqli_query($mysqli_link, $query0) or die(mysqli_connect_error());
 
@@ -99,6 +68,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
   for ($i=0; $i <$num_results; $i++) {
     $row = $result->fetch_assoc();
     echo "<p style='margin-left: 1;'><strong> Apartment ID: ";
+    $apartmentId = stripslashes($row['apartmentId']);
     echo stripslashes($row['apartmentId']);
     echo "</strong><br>";
     echo "<img src='uploads/".$row['pictures']."' style='float:right;width:220;height:220;'>";
@@ -118,6 +88,14 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
     echo "<p style='margin-left: 1;'> Picture: ";
     echo "<br>";
     echo "</p>";
+    echo "<iframe id='upload_target' name='upload_target1' src='delete_favorite_item.php' style='width:0;height:0;border:0px solid #fff;'></iframe>";        
+         // Add Delete buttons and hidden fields for each query result
+    echo <<<_END
+    <form action="delete_favorite_item.php" method="post" target='upload_target1'>
+    <input tyle='text-align:center;' type="hidden" name="delete_favorite" value="yes" />
+    <input type="hidden" name="apartmentId" value=$apartmentId />
+    <input type="submit" value="Delete from Favorite" /></form>
+_END;
     echo "<hr>";
 }
 
@@ -135,18 +113,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
               $conditions[] = "`$field` LIKE '%" . $_POST[$field] . "%'";
           }
       }
-
-      
-      
-      
      // echo "<p>Query: " . $query . "</p>";
-   
-     
-
-      
-      
-
-
       echo "<label><i class='fa fa-building'></i> Apartments found:</label>";
       echo $num_results;
     }
@@ -169,33 +136,6 @@ function w3_close() {
   document.getElementById("myOverlay").style.display = "none";
 }
 
-// Slideshow Apartment Images
-var slideIndex = 1;
-showDivs(slideIndex);
-
-function plusDivs(n) {
-  showDivs(slideIndex += n);
-}
-
-function currentDiv(n) {
-  showDivs(slideIndex = n);
-}
-
-function showDivs(n) {
-  var i;
-  var x = document.getElementsByClassName("mySlides");
-  var dots = document.getElementsByClassName("demo");
-  if (n > x.length) {slideIndex = 1}
-  if (n < 1) {slideIndex = x.length}
-  for (i = 0; i < x.length; i++) {
-    x[i].style.display = "none";
-  }
-  for (i = 0; i < dots.length; i++) {
-    dots[i].className = dots[i].className.replace(" w3-opacity-off", "");
-  }
-  x[slideIndex-1].style.display = "block";
-  dots[slideIndex-1].className += " w3-opacity-off";
-}
 </script>
   
   

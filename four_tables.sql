@@ -20,7 +20,7 @@ create table agent
 
 ## create customer table
 create table customer
-(customerId int NOT NULL,
+(customerId int NOT NULL AUTO_INCREMENT,
 password char(30) NOT NULL,
 nickName char(30),
 createDate date,
@@ -34,6 +34,17 @@ apartmentId int NOT NULL,
 FOREIGN KEY (customerId) REFERENCES customer(customerId),
 FOREIGN KEY (apartmentId) REFERENCES apartment(apartmentId)
 );
+
+
+## 新加了个date
+CREATE TABLE user_apt_like (
+  customerID int NOT NULL,
+  apartmentId int NOT NULL,
+  add_date date NOT NULL,
+  FOREIGN KEY (customerId) REFERENCES customer(customerId),
+   FOREIGN KEY (apartmentId) REFERENCES apartment(apartmentId)
+);
+
 
 ========
 ## generated some random data for test:) 
