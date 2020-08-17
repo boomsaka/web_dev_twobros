@@ -1,8 +1,8 @@
 <?php 
- error_reporting(0);
+ //error_reporting(0);
  session_start();
  if(isset($_SESSION['userId'])){
-   $customerId = $_SESSION['userId'];
+   $customerId = $_SESSION['customerID'];
  }
  else { echo "Login to add";}
 
@@ -17,7 +17,8 @@ if (isset($_POST['add_favorite']) && isset($_POST['apartmentId'])){
 
    $apartmentId=$_POST['apartmentId'];
 
-   $query = "insert into user_apt_like (customerID, apartmentId, add_date) values ('1','$apartmentId','2020-08-15')";
+   $date = date('Y-m-d');
+   $query = "insert into user_apt_like (customerID, apartmentId, add_date) values ('$customerId','$apartmentId','$date')";
    $result = $db->query($query);
 
    if ($result) {

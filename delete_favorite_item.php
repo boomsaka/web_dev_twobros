@@ -1,4 +1,9 @@
 <?php 
+session_start();
+if(isset($_SESSION['customerID'])){
+  $customerId = $_SESSION['customerID'];
+}
+else { echo "Please login!";}
  @ $db = new mysqli('localhost', 'bookorama', '123456789', 'twobros');
 
  if (mysqli_connect_errno()) {
@@ -10,7 +15,7 @@ if (isset($_POST['delete_favorite']) && isset($_POST['apartmentId'])){
 
    $apartmentId=$_POST['apartmentId'];
 
-   $query = "delete from user_apt_like where apartmentId = $apartmentId and customerId = 1";
+   $query = "delete from user_apt_like where apartmentId = $apartmentId and customerId = $customerId";
    $result = $db->query($query);
 
    if ($result) {

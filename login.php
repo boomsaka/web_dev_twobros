@@ -20,10 +20,10 @@
         <h2>Login</h2>
         <p>Please fill in your credentials to login.</p>
         <form action="" method="post">
-            <div class="form-group <?php echo (!empty($customerId_err)) ? 'has-error' : ''; ?>">
-                <label>customerId</label>
-                <input type="text" name="customerId" class="form-control">
-                <!-- <span class="help-block"><?php echo $customerId_err; ?></span> -->
+            <div class="form-group <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
+                <label>Username</label>
+                <input type="text" name="username" class="form-control">
+                <!-- <span class="help-block"><?php echo $username_err; ?></span> -->
             </div>    
             <div class="form-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
                 <label>Password</label>
@@ -31,9 +31,9 @@
                 <!-- <span class="help-block"><?php echo $password_err; ?></span> -->
             </div>
             <div class="form-group">
-                <input type="submit" class="btn btn-primary" value="Login">
+                <input name ="submit-login" type="submit" class="btn btn-primary" value="Login">
             </div>
-            <p>Don't have an account? <a href="register.php">Sign up now</a>.</p>
+            <p>Don't have an account? <a href="signup.php">Sign up now</a>.</p>
         </form>
     </div>    
 </body>
@@ -55,18 +55,22 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
 }
 
 // Processing form data when form is submitted
-if($_SERVER["REQUEST_METHOD"] == "POST"){
-    $customerId = $_POST["customerId"];
+if(isset($_POST['submit-login'])) {
+    $username = $_POST["username"];
     $password = $_POST["password"];
 
-    $qq = "SELECT customerId, password FROM customer WHERE customerId = {$customerId} and password=\"{$password}\"";
+    $qq = "SELECT username, password FROM customer WHERE username = \"{$username}\" and password=\"{$password}\"";
     $result = mysqli_query($link, $qq) or die(mysqli_connect_error());
     $num_results = $result->num_rows;
 
+    $q = "SELECT customerId FROM customer WHERE username = \"{$username}\" and password=\"{$password}\"";
+    $customerId_result = mysqli_query($link, $q) or die(mysqli_connect_error());
+    $customerId = mysqli_fetch_row($customerId_result)[0];
     if ($num_results == 1){
 
         $_SESSION["loggedin"] = true;
-        $_SESSION["userId"] = $customerId;
+        $_SESSION["userId"] = $username;
+        $_SESSION['customerID'] = $customerId;
 
         header("location: twobros.php");
     } else {
