@@ -22,8 +22,8 @@ create table agent
 create table customer
 (customerId int NOT NULL AUTO_INCREMENT,
 password char(30) NOT NULL,
-nickName char(30),
-createDate date,
+username char(30) NOT NULL,
+createDate date NOT NULL,
 PRIMARY KEY (customerId)
 );
 

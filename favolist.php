@@ -52,8 +52,8 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
     <?php
     error_reporting(0);
     session_start();
-    if(isset($_SESSION['userId'])){
-      $customerId = $_SESSION['userId'];
+    if(isset($_SESSION['customerID'])){
+      $customerId = $_SESSION['customerID'];
     }
     else { echo "Please login!";}
     

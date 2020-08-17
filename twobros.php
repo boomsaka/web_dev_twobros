@@ -46,13 +46,15 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
     </form>
     <p><button class="w3-button w3-blue w3-round-xxlarge w3-border w3-left-align" onclick="window.location.href='favolist.php'"><i class="fa fa-heart w3-margin-right"></i>My Favorite List</button></p>
    <form action="login.php" method="post" target="_blank">
-   <button class="w3-button w3-blue w3-round-xxlarge w3-border w3-left-align" type="submit" name='login-button'><i class="fa fa-user-plus w3-margin-right"></i>Login to Add to Favorite</button>
+   <button class="w3-button w3-blue w3-round-xxlarge w3-border w3-left-align" type="submit" name='login-button'><i class="fa fa-sign-in w3-margin-right"></i>Login to Add to Favorite</button>
+  </form>
+  <form action="signup.php" method="post">
+   <button class="w3-button w3-blue w3-round-xxlarge w3-border w3-left-align" type="submit" name='signup-button'><i class="fa fa-user-plus w3-margin-right"></i>Sign Up</button>
   </form>
   <iframe id='logout' name='logout' src='logout.php' style='width:0;height:0;border:0px solid #fff;'></iframe>
   <form action="logout.php" method="post" target="logout">
-   <button class="w3-button w3-blue w3-round-xxlarge w3-border w3-left-align" type="submit" name='logout-button'><i class="fa fa-user-plus w3-margin-right"></i>Logout</button>
+   <button class="w3-button w3-blue w3-round-xxlarge w3-border w3-left-align" type="submit" name='logout-button'><i class="fa fa-sign-out w3-margin-right"></i>Logout</button>
   </form>
-  
 </div>
   </div>
 
@@ -99,7 +101,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
     <h2 class="w3-text-red">Apartment Listings</h2>
     <?php
     error_reporting(0);
-    $customerId = $_SESSION['userId'];
+    $customerId = $_SESSION['customerID'];
   $mysqli_link = mysqli_connect('localhost', 'bookorama', '123456789', 'twobros');
   
   // Check connection
