@@ -43,10 +43,18 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
       -->
       <p><button class="w3-button w3-red w3-round-xxlarge w3-border w3-left-align" type="submit" name='submit-button'><i class="fa fa-search w3-margin-right"></i> Search </button></p>
     </form>
-
-    <button onclick="window.location.href='favolist.php'"><i class="fa fa-heart w3-margin-right"></i>My Favorite List</button>
-
+    <p><button class="w3-button w3-blue w3-round-xxlarge w3-border w3-left-align" onclick="window.location.href='favolist.php'"><i class="fa fa-heart w3-margin-right"></i>My Favorite List</button></p>
+   <form action="login.php" method="post" target="_blank">
+   <button class="w3-button w3-blue w3-round-xxlarge w3-border w3-left-align" type="submit" name='signup-button'><i class="fa fa-user-plus w3-margin-right"></i>Login to Add to Favorite</button>
+  </form>
+  <iframe id='logout' name='logout' src='logout.php' style='width:0;height:0;border:0px solid #fff;'></iframe>
+  <form action="logout.php" method="post" target="logout">
+   <button class="w3-button w3-blue w3-round-xxlarge w3-border w3-left-align" type="submit" name='logout-button'><i class="fa fa-user-plus w3-margin-right"></i>Logout</button>
+  </form>
+  
+</div>
   </div>
+
   <div class="w3-bar-block">
     <a href="#apartment" class="w3-bar-item w3-button w3-padding-16"><i class="fa fa-building"></i> Apartment</a>
     <a href="#contact" class="w3-bar-item w3-button w3-padding-16"><i class="fa fa-envelope"></i> Contact</a>
