@@ -1,3 +1,4 @@
+ <?php session_start(); ?>
  <html>
 <title>TwoBros Home Page</title>
 <meta charset="UTF-8">
@@ -45,7 +46,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
     </form>
     <p><button class="w3-button w3-blue w3-round-xxlarge w3-border w3-left-align" onclick="window.location.href='favolist.php'"><i class="fa fa-heart w3-margin-right"></i>My Favorite List</button></p>
    <form action="login.php" method="post" target="_blank">
-   <button class="w3-button w3-blue w3-round-xxlarge w3-border w3-left-align" type="submit" name='signup-button'><i class="fa fa-user-plus w3-margin-right"></i>Login to Add to Favorite</button>
+   <button class="w3-button w3-blue w3-round-xxlarge w3-border w3-left-align" type="submit" name='login-button'><i class="fa fa-user-plus w3-margin-right"></i>Login to Add to Favorite</button>
   </form>
   <iframe id='logout' name='logout' src='logout.php' style='width:0;height:0;border:0px solid #fff;'></iframe>
   <form action="logout.php" method="post" target="logout">
@@ -97,7 +98,10 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
   <div class="w3-container" id='apartments'>
     <h2 class="w3-text-red">Apartment Listings</h2>
     <?php
+    error_reporting(0);
+    $customerId = $_SESSION['userId'];
   $mysqli_link = mysqli_connect('localhost', 'bookorama', '123456789', 'twobros');
+  
   // Check connection
   if (mysqli_connect_errno()) {
   echo "Failed to connect to MySQL: " . mysqli_connect_error();
@@ -156,13 +160,13 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
           //echo "<form action='favorite_list_action.php' method='get' target='upload_target'>";
           //echo "<i id=$i onclick=\"togglefavolist(this.id)\" class='fa fa-heart' style='font-size:18px;border:0px;background-color:#FFFFFF;'></i>";
           //echo "</form>";
-         echo "<iframe id='upload_target' name='upload_target' src='add_favorite_item.php' style='width:0;height:0;border:0px solid #fff;'></iframe>";        
+         //echo "<iframe id='upload_target' name='upload_target' src='add_favorite_item.php' style='width:300;height:30;border:0px solid #fff;'></iframe>";        
          // Add Delete buttons and hidden fields for each query result
     echo <<<_END
     <form action="add_favorite_item.php" method="post" target='upload_target'>
     <input tyle='text-align:center;' type="hidden" name="add_favorite" value="yes" />
     <input type="hidden" name="apartmentId" value=$apartmentId />
-    <input type="submit" value="❤ Add to Favorite" /></form>
+    <input type="submit" value="❤ Add to Favorite" /><iframe id='upload_target' name='upload_target' src='add_favorite_item.php' style='width:300;height:30;border:0px solid #fff;'></iframe></form>
 _END;
           //echo "<button id=$i name='heart' onclick=\"togglefavolist(this.id)\" class='fa fa-heart' style='font-size:18px'></button>";
 

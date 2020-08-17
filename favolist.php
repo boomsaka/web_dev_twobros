@@ -50,6 +50,13 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
   <div class="w3-container" id='apartments'>
     <h2 class="w3-text-red">Your Favorite Apartment Listings</h2>
     <?php
+    error_reporting(0);
+    session_start();
+    if(isset($_SESSION['userId'])){
+      $customerId = $_SESSION['userId'];
+    }
+    else { echo "Please login!";}
+    
   $mysqli_link = mysqli_connect('localhost', 'bookorama', '123456789', 'twobros');
   // Check connection
   if (mysqli_connect_errno()) {
@@ -58,7 +65,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
   
   
   // builds the query // Please be aware the customerId need to be resolved with variables
-  $query0 = "SELECT * FROM apartment WHERE apartmentId IN (SELECT apartmentId FROM user_apt_like where customerId = 1)";
+  $query0 = "SELECT * FROM apartment WHERE apartmentId IN (SELECT apartmentId FROM user_apt_like where customerId = $customerId)";
 
   $result = mysqli_query($mysqli_link, $query0) or die(mysqli_connect_error());
 
