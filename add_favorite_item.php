@@ -1,4 +1,11 @@
 <?php 
+ error_reporting(0);
+ session_start();
+ if(isset($_SESSION['userId'])){
+   $customerId = $_SESSION['userId'];
+ }
+ else { echo "Login to add";}
+
  @ $db = new mysqli('localhost', 'bookorama', '123456789', 'twobros');
 
  if (mysqli_connect_errno()) {
