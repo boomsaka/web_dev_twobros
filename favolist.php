@@ -50,7 +50,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
   <div class="w3-container" id='apartments'>
     <h2 class="w3-text-red">Your Favorite Apartment Listings</h2>
     <?php
-    //error_reporting(0);
+    error_reporting(0);
     session_start();
     if(isset($_SESSION['customerID'])){
       $customerId = $_SESSION['customerID'];
